@@ -162,9 +162,6 @@ void Stack<T>::resize(size_t n){
         newStack[i] = items[i];
     }
     
-    for (size_t j = num_items; j < n; j++){
-        newStack[j] = 0;
-    }
     
     items = newStack;
     delete[] newStack;
