@@ -4,7 +4,6 @@
  *
  */
 
-
 /**
  * Default constructor. Remember to initialize any variables you need
  * and allocate any required memory. The initial size of `items` should
@@ -13,13 +12,15 @@
  */
 template <class T> Stack<T>::Stack()
 {
+    
+    /**
+     * @todo Your code here!
+     */
     items = new T[DEFAULTCAPACITY];
     num_items = 0;
     max_items = DEFAULTCAPACITY;
     
-    
 }
-
 
 /**
  * Destructor. Remember to free any memory allocated.
@@ -27,9 +28,11 @@ template <class T> Stack<T>::Stack()
  */
 template <class T> Stack<T>::~Stack()
 {
+    /**
+     * @todo Your code here!
+     */
+
     delete[] items;
-    num_items = 0;
-    max_items = 0;
 }
 
 /**
@@ -48,9 +51,9 @@ void Stack<T>::push(const T &newItem){
     if (num_items == max_items){
         resize(max_items * EXPANSIONFACTOR);
     }
+    
     num_items++;
     items[num_items - 1] = newItem;
-    
 };
 
 /**
@@ -62,19 +65,17 @@ void Stack<T>::push(const T &newItem){
  *
  * @return The element that used to be at the top of the Stack.
  */
+
+
 template <class T>
 T Stack<T>::pop(){
     
-    T curr = items[--num_items];
-    
-    if (num_items <= (max_items / SHRINKRATE)){
-        resize(max_items / EXPANSIONFACTOR);
-    }
-    
-    return curr;
-    
+    T temp = items[--num_items];
 
-    
+    if (num_items<max_items/SHRINKRATE && max_items>DEFAULTCAPACITY){
+        resize(max_items/EXPANSIONFACTOR);
+    }
+    return temp; 
 };
 
 /**
@@ -84,8 +85,9 @@ T Stack<T>::pop(){
  */
 template <class T> void Stack<T>::add(const T &theItem)
 {
+
     push(theItem);
-};
+}
 
 /**
  * Removes an element from the ordering structure.
@@ -94,8 +96,9 @@ template <class T> void Stack<T>::add(const T &theItem)
  */
 template <class T> T Stack<T>::remove()
 {
-    pop();
-};
+    
+    return pop();
+}
 
 /**
  * Finds the object on top of the Stack, and returns it to the caller.
@@ -108,7 +111,7 @@ template <class T> T Stack<T>::remove()
 template <class T>
 T Stack<T>::peek(){
     
-    return items[num_items - 1];
+    return items[num_items-1];
 };
 
 /**
@@ -155,16 +158,14 @@ size_t Stack<T>::size() const {
  */
 template <class T>
 void Stack<T>::resize(size_t n){
+
+    T* newStack = new T[n];
+    max_items = n;
     
-    T * newStack = new T[n];
-    
-    for (size_t i = 0; i < num_items; i++){
+    for (size_t i = 0; i<num_items; i++){
         newStack[i] = items[i];
     }
-    
-    
+    delete[] items;
     items = newStack;
-    delete[] newStack;
-    max_items = n;
 
 };
